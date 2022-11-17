@@ -13,3 +13,15 @@ class Rahmen(Frame):
         self.text.set('123')
         self.entry=Entry(self, width=30, textvariable=self.text)
         self.entry.pack(side='right')
+        
+
+class Application(Frame):
+    def __init__(self, master=None):
+        Frame.__init__(self, master)
+        self.pack()
+
+
+root = Tk()
+root.title('Personendatenbank')
+Application(master=root)
+root.mainloop()
