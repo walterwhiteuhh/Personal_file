@@ -2,7 +2,14 @@
 
 import tkinter as tk
 from tkinter import *
+import sqlite3
 
+# Create the database connection and cursor
+conn = sqlite3.connect("people.db")
+cursor = conn.cursor()
+
+# Create the table to store the data
+cursor.execute("CREATE TABLE IF NOT EXISTS people (name text, height real, weight real)")
 class Rahmen(Frame):
     def __init__(self, master=None, labeltext=''):
         Frame.__init__(self, master)
@@ -35,7 +42,14 @@ class Application(Frame):
         self.listbox=Listbox(master)
         self.listbox.pack(fill=BOTH)
     
+
+        
     def action_ok(self):
+        # Insert the data into the database
+        cursor.execute("INSERT INTO people VALUES (?, ?, ?)", (self.nameFrame.text.get(), self.heightFrame.text.get(), self.weightFrame.text.get()))
+        conn.commit()
+        
+        # Update the listbox
         self.listbox.insert(END, 
                             self.nameFrame.text.get()+', '+
                             self.heightFrame.text.get()+', '+
@@ -44,8 +58,11 @@ class Application(Frame):
     
     def action_cancel(self):
         pass
-        
 root = Tk()
 root.title('Personendatenbank')
 Application(master=root)
 root.mainloop()
+
+
+# Close the database connection
+conn.close()
