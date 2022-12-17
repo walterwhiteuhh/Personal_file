@@ -9,7 +9,7 @@ conn = sqlite3.connect("people.db")
 cursor = conn.cursor()
 
 # Create the table to store the data
-cursor.execute("CREATE TABLE IF NOT EXISTS people (name text, height INTEGER, weight FLOAT, age real)")
+cursor.execute("CREATE TABLE IF NOT EXISTS people (name text, height FLOAT, weight FLOAT, age FLOAT)")
 class Rahmen(Frame):
     def __init__(self, master=None, labeltext=''):
         Frame.__init__(self, master)
