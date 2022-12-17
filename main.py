@@ -9,7 +9,7 @@ conn = sqlite3.connect("people.db")
 cursor = conn.cursor()
 
 # Create the table to store the data
-cursor.execute("CREATE TABLE IF NOT EXISTS people (name text, height INTEGER, weight FLOAT, age real)")
+cursor.execute("CREATE TABLE IF NOT EXISTS people (First_Name Name text, Last_Name TEXT, Age FLOAT, Zip_Code INTEGER, City TEXT, Telephone_Number INTEGER, eMail text)")
 class Rahmen(Frame):
     def __init__(self, master=None, labeltext=''):
         Frame.__init__(self, master)
@@ -17,7 +17,7 @@ class Rahmen(Frame):
         self.label=Label(self, anchor=W,text=labeltext, width=30)
         self.label.pack(side='left')
         self.text=StringVar()
-        self.text.set('1234')
+        self.text.set('12345')
         self.entry=Entry(self, width=30, textvariable=self.text)
         self.entry.pack(side='right')
 
@@ -27,10 +27,14 @@ class Application(Frame):
     def __init__(self, master=None):
         Frame.__init__(self, master)
         self.pack()
-        self.nameFrame=Rahmen(master, 'Name: ')
-        self.heightFrame=Rahmen(master, 'Größe: ')
-        self.weightFrame=Rahmen(master, 'Gewicht: ')
-        self.ageFrame=Rahmen(master, 'Alter: ')
+        self.firstnameFrame=Rahmen(master, 'First Name: ')
+        self.lastnameFrame=Rahmen(master, 'Last Name: ')
+        self.ageFrame=Rahmen(master, 'Age: ')
+        self.zipcodeFrame=Rahmen(master, 'Zip Code: ')
+        self.cityFrame=Rahmen(master, 'City: ')
+        self.telephoneFrame=Rahmen(master, 'Telephone Number: ')
+        self.emailFrame=Rahmen(master, 'eMail: ')
+
 
         self.buttonFrame=Frame(master)
         self.buttonFrame.pack()
@@ -48,15 +52,25 @@ class Application(Frame):
         
     def action_ok(self):
         # Insert the data into the database
-        cursor.execute("INSERT INTO people VALUES (?, ?, ?, ?)", (self.nameFrame.text.get(), self.heightFrame.text.get(), self.weightFrame.text.get(),self.ageFrame.text.get()))
+        cursor.execute("INSERT INTO people VALUES (?, ?, ?, ?, ?, ?, ?)", (self.firstnameFrame.text.get(), 
+                                                                     self.lastnameFrame.text.get(), 
+                                                                     self.ageFrame.text.get(),
+                                                                     self.zipcodeFrame.text.get(),
+                                                                     self.cityFrame.text.get(),                            
+                                                                     self.telephoneFrame.text.get(),                                                       
+                                                                     self.emailFrame.text.get()
+))
         conn.commit()
         
         # Update the listbox
         self.listbox.insert(END, 
-                            self.nameFrame.text.get()+', '+
-                            self.heightFrame.text.get()+', '+
-                            self.weightFrame.text.get() +', '+
-                            self.ageFrame.text.get()
+                            self.firstnameFrame.text.get()+', '+
+                            self.lastnameFrame.text.get()+', '+
+                            self.ageFrame.text.get() +', '+
+                            self.zipcodeFrame.text.get()+', '+
+                            self.cityFrame.text.get()+', '+
+                            self.telephoneFrame.text.get()+', '+
+                            self.emailFrame.text.get()
                             )
     
     def action_cancel(self):

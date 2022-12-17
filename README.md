@@ -1,5 +1,5 @@
-## UNDER CONSTRUCTION ##
+## SQLite based database for contacts with Tkinter GUI 
 
-A SQLite database for contacts is created here, which contains all relevant variables such as name, place of residence, telephone number, etc.
+A SQLite database for contacts is created here, which contains all relevant variables such as name, city, telephone number, eMail etc.
 
-It feeds them into a database system and can be read out and modified from the browser, as well as making links with accounts possible. 
+It feeds them into a SQLite database system and can be read out and modified from the browser. 
